@@ -35,9 +35,6 @@
     <DocumentationFile>bin\Release\Plugin.Connectivity.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="BaseConnectivity.cs" />
     <Compile Include="ConnectionType.cs" />
     <Compile Include="IConnectivity.cs" />

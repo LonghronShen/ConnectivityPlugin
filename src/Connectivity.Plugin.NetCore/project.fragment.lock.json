@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "exports": {
+    "Connectivity.Plugin.Abstractions/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5.1",
+      "compile": {
+        "bin/Debug/Plugin.Connectivity.Abstractions.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Plugin.Connectivity.Abstractions.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Plugin.Connectivity.Abstractions.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Connectivity.Plugin/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5.1",
+      "compile": {
+        "bin/Debug/Plugin.Connectivity.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Plugin.Connectivity.dll": {}
+      }
+    }
+  }
+}

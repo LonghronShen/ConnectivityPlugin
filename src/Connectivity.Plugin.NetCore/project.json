@@ -1,0 +1,34 @@
+﻿{
+  "version": "2.2.12-*",
+
+  "dependencies": {
+    "Connectivity.Plugin": {
+      "target": "project"
+    },
+    "Connectivity.Plugin.Abstractions": {
+      "target": "project"
+    }
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8",
+        "portable-net45+win8+wp8+wpa81"
+      ],
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Net.NetworkInformation": "4.1.0",
+        "System.Net.NameResolution": "4.0.0"
+      },
+      "buildOptions": {
+        "define": [ "NETCORE" ]
+      }
+    },
+    "net451": {
+      "dependencies": {
+      }
+    }
+  }
+}
