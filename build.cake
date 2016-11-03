@@ -5,7 +5,7 @@ var TARGET = Argument ("target", Argument ("t", "Default"));
 var version = EnvironmentVariable ("APPVEYOR_BUILD_VERSION") ?? Argument("version", "0.0.9999");
 
 var libraries = new Dictionary<string, string> {
- 	{ "./src/Connectivity.sln", "Any" },
+	{ "./src/Connectivity.sln", "Any" },
 };
 
 var samples = new Dictionary<string, string> {
@@ -15,38 +15,38 @@ var samples = new Dictionary<string, string> {
 var BuildAction = new Action<Dictionary<string, string>> (solutions =>
 {
 
-	foreach (var sln in solutions) 
-    {
+	foreach (var sln in solutions)
+	{
 
 		// If the platform is Any build regardless
 		//  If the platform is Win and we are running on windows build
 		//  If the platform is Mac and we are running on Mac, build
 		if ((sln.Value == "Any")
 				|| (sln.Value == "Win" && IsRunningOnWindows ())
-				|| (sln.Value == "Mac" && IsRunningOnUnix ())) 
-        {
-			
+				|| (sln.Value == "Mac" && IsRunningOnUnix ()))
+		{
+
 			// Bit of a hack to use nuget3 to restore packages for project.json
-			if (IsRunningOnWindows ()) 
-            {
-				
+			if (IsRunningOnWindows ())
+			{
+
 				Information ("RunningOn: {0}", "Windows");
 
 				NuGetRestore (sln.Key, new NuGetRestoreSettings
-                {
+				{
 					ToolPath = "./tools/nuget3.exe"
 				});
 
 				// Windows Phone / Universal projects require not using the amd64 msbuild
-				MSBuild (sln.Key, c => 
-                { 
+				MSBuild (sln.Key, c =>
+				{
 					c.Configuration = "Release";
 					c.MSBuildPlatform = Cake.Common.Tools.MSBuild.MSBuildPlatform.x86;
 				});
-			} 
-            else 
-            {
-                // Mac is easy ;)
+			}
+			else
+			{
+				// Mac is easy ;)
 				NuGetRestore (sln.Key);
 
 				DotNetBuild (sln.Key, c => c.Configuration = "Release");
@@ -57,35 +57,35 @@ var BuildAction = new Action<Dictionary<string, string>> (solutions =>
 
 Task("Libraries").Does(()=>
 {
-    BuildAction(libraries);
+	BuildAction(libraries);
 });
 
 Task("Samples")
-    .IsDependentOn("Libraries")
-    .Does(()=>
+	.IsDependentOn("Libraries")
+	.Does(()=>
 {
-    BuildAction(samples);
+	BuildAction(samples);
 });
 
 Task ("NuGet")
 	.IsDependentOn ("Samples")
 	.Does (() =>
 {
-    if(!DirectoryExists("./Build/nuget/"))
-        CreateDirectory("./Build/nuget");
-        
-	NuGetPack ("./nuget/Plugin.nuspec", new NuGetPackSettings { 
+	if(!DirectoryExists("./Build/nuget/"))
+		CreateDirectory("./Build/nuget");
+
+	NuGetPack ("./nuget/Plugin.nuspec", new NuGetPackSettings {
 		Version = version,
 		Verbosity = NuGetVerbosity.Detailed,
 		OutputDirectory = "./Build/nuget/",
 		BasePath = "./",
-	});	
+	});
 });
 
 Task("Component")
-    .IsDependentOn("Samples")
-    .IsDependentOn("NuGet")
-    .Does(()=>
+	.IsDependentOn("Samples")
+	.IsDependentOn("NuGet")
+	.Does(()=>
 {
 	if(!version.Contains("beta"))
 	{
@@ -109,7 +109,7 @@ Task("Component")
 Task ("Default").IsDependentOn("Component");
 
 
-Task ("Clean").Does (() => 
+Task ("Clean").Does (() =>
 {
 	CleanDirectory ("./component/tools/");
 
