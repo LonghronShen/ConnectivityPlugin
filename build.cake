@@ -6,6 +6,7 @@ var version = EnvironmentVariable ("APPVEYOR_BUILD_VERSION") ?? Argument("versio
 
 var libraries = new Dictionary<string, string> {
 	{ "./src/Connectivity.sln", "Any" },
+	{ "./src/Connectivity.Core.sln", "Any" },
 };
 
 var samples = new Dictionary<string, string> {
@@ -34,7 +35,7 @@ var BuildAction = new Action<Dictionary<string, string>> (solutions =>
 
 				NuGetRestore (sln.Key, new NuGetRestoreSettings
 				{
-					ToolPath = "./tools/nuget3.exe"
+					ToolPath = "./tools/nuget.exe"
 				});
 
 				// Windows Phone / Universal projects require not using the amd64 msbuild
